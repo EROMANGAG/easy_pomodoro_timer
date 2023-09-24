@@ -1,9 +1,10 @@
 function Timer() {
     this.statusList = ['work', 'rest']
+    this.statusChinese = ['现在开始工作！！', '是时候放松咯！']
     this.statusNow = 0
     this.countdownDisplayObj = gById("countdownDisplay");
     this.statusDisplayObj = gById('status')
-    this.statusDisplayObj.innerText = this.statusList[this.statusNow]
+    this.statusDisplayObj.innerText = this.statusChinese[this.statusNow]
     this.progressBarObj = gById('progressBar')
 
 }
@@ -15,24 +16,16 @@ Timer.prototype.switch_status = function () {
     } else {
         this.statusNow = this.statusNow++
     }
-    this.statusDisplayObj.innerText = this.statusList[this.statusNow]
+    this.statusDisplayObj.innerText = this.statusChinese[this.statusNow]
 }
 Timer.prototype.start_timer = function () {
     this.time = getLocalStorage(this.statusList[this.statusNow] + 'Time')
     this.startTimeStamp = Date.now();
     this.targetTimeStamp = this.startTimeStamp + this.time * 60 * 1000;
     this.leftTime = this.targetTimeStamp - Date.now();
-    setInterval(
+    let interval = setInterval(
         () => {
-            if (this.leftTime > 0) {
-                this.update_countdown_display()
-                this.update_progressbar_display()
-            } else {
-                clearInterval()
-                sessionFinishSound.play()
-                this.switch_status()
-                this.start_timer()
-            }
+            this.tictoc(interval)
         }
         , 1000)
 }
@@ -42,6 +35,17 @@ Timer.prototype.update_countdown_display = function () {
 }
 Timer.prototype.update_progressbar_display = function () {
     this.progressBarObj.style.width = ((this.time * 60 * 1000 - this.leftTime) / (this.time * 60 * 1000)) * 100 + '%'
+}
+Timer.prototype.tictoc = function (interval) {
+    if (this.leftTime > 0) {
+        this.update_countdown_display()
+        this.update_progressbar_display()
+    } else {
+        clearInterval(interval)
+        sessionFinishSound.play()
+        this.switch_status()
+        this.start_timer()
+    }
 }
 
 function toHMS(data) {
