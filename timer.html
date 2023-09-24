@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/configure.js"></script>
+    <script src="./js/timer.js"></script>
+    <script src="./js/note.js"></script>
+    <script src="./js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+</head>
+<body style="background-color: rgb(218,218,218)">
+<div class="container-l m-4">
+    <div class="d-inline-flex align-items-center">
+        <h1 id="countdownDisplay">00:00:00</h1>
+        <span id="status" class="badge bg-secondary h4 ms-3"></span>
+    </div>
+    <div class="progress w-100" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
+         aria-valuemax="100">
+        <div id="progressBar" class="progress-bar bg-success"></div>
+    </div>
+    <button id="stop" type="button" class="btn btn-danger btn-sm m-2">结束</button>
+    <div>
+        <div id="noteList">
+            <div id="noteListOL" class="list-group">
+            </div>
+        </div>
+        <div id="addNote">
+            <div class="input-group mb-3">
+                <input id="noteTitle" type="text" class="form-control" placeholder="添加任务">
+                <button class="btn btn-outline-secondary" type="button" id="addNoteBtn">+</button>
+            </div>
+        </div>
+        <div id="noteListDone" style="color: rgba(164,164,164,0.87)" class="text-decoration-line-through">
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    const sessionFinishSound = new Audio(getLocalStorage('soundPath'))
+    new Timer().start_timer()
+    new Note().flushList()
+
+    let stopBtn = gById('stop')
+    stopBtn.onclick = function () {
+        window.open("index.html", "_blank");
+        window.close()
+    }
+
+    let addNoteBtn = gById('addNoteBtn')
+    addNoteBtn.onclick = function () {
+        new Note().addNote()
+    }
+</script>
+</html>
