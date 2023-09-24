@@ -15,17 +15,21 @@
 
     <div class="card-body">
         <form id="settings">
-            <div class="mb-3">
-                <label for="workTime" class="form-label">工作时长</label>
-                <input type="text" class="form-control" id="workTime" name="workTime" placeholder="name@example.com">
+            <div class="input-group mb-3">
+                <span class="input-group-text">工作时长</span>
+                <input type="number" class="form-control" id="workTime" name="workTime" placeholder="name@example.com"
+                       value="50">
+                <span class="input-group-text">分钟</span>
             </div>
-            <div class="mb-3">
-                <label for="restTime" class="form-label">休息时长</label>
-                <input type="text" class="form-control" id="restTime" name="restTime">
+            <div class="input-group mb-3">
+                <span class="input-group-text">休息时长</span>
+                <input type="number" class="form-control" id="restTime" name="restTime" value="10">
+                <span class="input-group-text">分钟</span>
             </div>
-            <div class="mb-3">
-                <label for="restTime" class="form-label">铃声路径</label>
-                <input type="text" class="form-control" id="soundPath" name="soundPath">
+            <div class="input-group mb-3">
+                <span class="input-group-text">铃声路径</span>
+                <input type="text" class="form-control" id="soundPath" name="soundPath"
+                       value="./sound/research-completed.ogg">
             </div>
         </form>
         <button id="start" type="button" class="btn btn-primary">开始</button>

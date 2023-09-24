@@ -19,7 +19,21 @@
          aria-valuemax="100">
         <div id="progressBar" class="progress-bar bg-success"></div>
     </div>
-    <button id="stop" type="button" class="btn btn-danger btn-sm m-2">结束</button>
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="Third group">
+            <button id="stop" type="button" class="btn btn-danger btn-sm m-2">结束</button>
+        </div>
+
+        <div class="btn-group m-2" role="group" aria-label="Third group">
+            <button id="add5" type="button" class="btn btn-primary btn-sm">+5</button>
+            <button id="add1" type="button" class="btn btn-primary btn-sm">+1</button>
+            <button id="minus1" type="button" class="btn btn-primary btn-sm">-1</button>
+            <button id="minus5" type="button" class="btn btn-primary btn-sm">-5</button>
+        </div>
+
+
+    </div>
+
     <div>
         <div id="noteList">
             <div id="noteListOL" class="list-group">
@@ -40,7 +54,8 @@
 </body>
 <script>
     const sessionFinishSound = new Audio(getLocalStorage('soundPath'))
-    new Timer().start_timer()
+    let timer = new Timer()
+    timer.start_timer()
     new Note().flushList()
 
     let stopBtn = gById('stop')
@@ -53,5 +68,30 @@
     addNoteBtn.onclick = function () {
         new Note().addNote()
     }
+
+    let add5Btn = gById('add5')
+    add5Btn.addEventListener('click', () => {
+        timer.targetTimeStamp = timer.targetTimeStamp + 5 * 60 * 1000
+        this.time += 5
+        this.leftTime = this.targetTimeStamp - Date.now()
+    })
+    let add1Btn = gById('add1')
+    add1Btn.addEventListener('click', () => {
+        timer.targetTimeStamp = timer.targetTimeStamp + 1 * 60 * 1000
+        this.time += 1
+        this.leftTime = this.targetTimeStamp - Date.now()
+    })
+    let minus1Btn = gById('minus1')
+    minus1Btn.addEventListener('click', () => {
+        timer.targetTimeStamp = timer.targetTimeStamp - 1 * 60 * 1000
+        this.time -= 1
+        this.leftTime = this.targetTimeStamp - Date.now()
+    })
+    let minus5Btn = gById('minus5')
+    minus5Btn.addEventListener('click', () => {
+        timer.targetTimeStamp = timer.targetTimeStamp - 5 * 60 * 1000
+        this.time -= 5
+        this.leftTime = this.targetTimeStamp - Date.now()
+    })
 </script>
 </html>

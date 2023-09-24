@@ -28,7 +28,7 @@ function setAndStart(settingFormID) {
 }
 
 function fillInSettings() {
-    gById('workTime').value = getLocalStorage('workTime')
-    gById('restTime').value = getLocalStorage('restTime')
-    gById('soundPath').value = getLocalStorage('soundPath')
+    gById('workTime').value = getLocalStorage('workTime') === undefined ? 50 : getLocalStorage('workTime')
+    gById('restTime').value = getLocalStorage('restTime') === undefined ? 10 : getLocalStorage('restTime')
+    gById('soundPath').value = getLocalStorage('soundPath') === undefined ? "./sound/research-completed.ogg" : getLocalStorage('soundPath')
 }

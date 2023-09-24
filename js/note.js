@@ -37,18 +37,6 @@ Note.prototype.listModule = function (id, noteData) {
     let divBtnG = document.createElement('div')
     divBtnG.setAttribute('id', 'note-' + id)
     divBtnG.setAttribute('class', 'list-group-item list-group-item-action d-flex justify-content-between align-items-center')
-    divBtnG.addEventListener('click', () => {
-        const noteDataNew = JSON.parse(getLocalStorage('noteData'))
-        const isDone = noteDataNew[id].isDone
-
-        if (!isDone) {
-            this.noteListDoneObj.appendChild(divBtnG)
-        } else {
-            this.noteListOLObj.appendChild(divBtnG)
-        }
-        noteDataNew[id].isDone = !isDone
-        setLocalStorage('noteData', JSON.stringify(noteDataNew))
-    })
     let div = document.createElement('div')
     div.setAttribute('class', 'ms-2 me-auto')
     let spanTitle = document.createElement('span')
@@ -57,7 +45,7 @@ Note.prototype.listModule = function (id, noteData) {
     let spanTime = document.createElement('span')
     spanTime.setAttribute('class', 'ms-1 text-secondary fw-light')
     spanTime.setAttribute('id', 'note-timer-' + id)
-    setInterval(() => {
+    let timer = setInterval(() => {
         spanTime.innerText = toHMS(Date.now() - timestamp)
     }, 1000)
     let delBtn = document.createElement('button')
@@ -70,6 +58,21 @@ Note.prototype.listModule = function (id, noteData) {
     div.appendChild(spanTime)
     divBtnG.appendChild(div)
     divBtnG.appendChild(delBtn)
+    divBtnG.addEventListener('click', () => {
+        const noteDataNew = JSON.parse(getLocalStorage('noteData'))
+        const isDone = noteDataNew[id].isDone
+        if (!isDone) {
+            this.noteListDoneObj.appendChild(divBtnG)
+            clearInterval(timer)
+        } else {
+            this.noteListOLObj.appendChild(divBtnG)
+            timer = setInterval(() => {
+                spanTime.innerText = toHMS(Date.now() - timestamp)
+            }, 1000)
+        }
+        noteDataNew[id].isDone = !isDone
+        setLocalStorage('noteData', JSON.stringify(noteDataNew))
+    })
     return divBtnG
 }
 
