@@ -24,11 +24,16 @@ function setAndStart(settingFormID) {
     setLocalStorage('workTime', workTime);
     setLocalStorage('soundPath', soundPath);
 
-    window.open("timer.html", "_blank", "toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=no, resizable=no, copyhistory=no, width=320, height=130");
+    window.open("timer.html", "_blank", "toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=no, resizable=no, copyhistory=no, width=320, height=280");
+    window.close()
 }
 
 function fillInSettings() {
     gById('workTime').value = getLocalStorage('workTime') === undefined ? 50 : getLocalStorage('workTime')
     gById('restTime').value = getLocalStorage('restTime') === undefined ? 10 : getLocalStorage('restTime')
     gById('soundPath').value = getLocalStorage('soundPath') === undefined ? "./sound/research-completed.ogg" : getLocalStorage('soundPath')
+}
+
+function hasScrollbar() {
+    return document.documentElement.clientHeight < document.documentElement.offsetHeight - 4;
 }

@@ -23,6 +23,10 @@ Note.prototype.addNote = function () {
     }
     setLocalStorage('noteData', JSON.stringify(noteData))
     this.flushList()
+    //判断是否超过夜眠长度
+    if (hasScrollbar()) {
+        window.resizeTo(document.body.clientWidth + 30, document.documentElement.offsetHeight + 40)
+    }
 }
 Note.prototype.delNote = function (id) {
     let noteData = JSON.parse(getLocalStorage('noteData'))
@@ -36,7 +40,7 @@ Note.prototype.listModule = function (id, noteData) {
     const timestamp = noteData.timestamp
     let divBtnG = document.createElement('div')
     divBtnG.setAttribute('id', 'note-' + id)
-    divBtnG.setAttribute('class', 'list-group-item list-group-item-action d-flex justify-content-between align-items-center')
+    divBtnG.setAttribute('class', 'list-group-item list-group-item-action d-flex justify-content-between align-items-center p-1')
     let div = document.createElement('div')
     div.setAttribute('class', 'ms-2 me-auto')
     let spanTitle = document.createElement('span')

@@ -1,0 +1,10 @@
+.settings-card {
+    margin: 30px
+}
+
+@media screen and (max-width: 767px) {
+    .settings-card {
+        margin: 4px;
+        margin-top: 20px;
+    }
+}
